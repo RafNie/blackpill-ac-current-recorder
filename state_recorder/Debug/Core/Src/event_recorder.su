@@ -1,0 +1,9 @@
+event_recorder.c:16:13:initSDcard	24	static
+event_recorder.c:28:13:itoFractional	56	dynamic
+event_recorder.c:40:14:ftoa	32	static
+event_recorder.c:53:14:convertTime	48	static
+event_recorder.c:75:13:recordData	200	static
+event_recorder.c:106:6:initRecorder	16	static
+event_recorder.c:112:6:deleteRecorder	16	static
+event_recorder.c:117:6:startEvent	16	static
+event_recorder.c:121:6:endEvent	32	static

@@ -1,0 +1,3 @@
+input_minitor.c:10:21:calculateCurrent	16	static
+input_minitor.c:14:20:clearMonitor	16	static
+input_minitor.c:21:6:countInput	24	static
