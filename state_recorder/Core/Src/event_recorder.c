@@ -19,7 +19,7 @@ static void initSDcard() {
 	status = f_open(&SDFile, file_name, FA_WRITE | FA_CREATE_NEW);
 	if (FR_OK == status) {
 		unsigned int wbytes;
-		const char* init_row = "Index, nazwa, czas zdarzenia, czas trwania, avr. I [A], Energia [kWh]\n";
+		const char* init_row = "Index, name, event time, duration, avr. I [A], Energy [kWh]\n";
 		f_write(&SDFile, init_row, strlen(init_row), &wbytes);
 		f_close(&SDFile);
 	}
