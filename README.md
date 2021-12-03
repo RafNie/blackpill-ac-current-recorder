@@ -1,16 +1,16 @@
-### AC Current Recorder
+### Rejestrator prądu przemiennego
 
-AC current recorder based on the blackpill STM32F411CEU.  
-Device uses a current transformer for measure AC current.  
-If the current is exceeded the threshold, a new data record will be written to SD in the data.txt file. 
+Rejestrator prądu przemiennego bazujący na blackpill STM32F411CEU.  
+Urządzenie używa przekładnika prądowego do pomiaru prądu.  
+Jeżeli prąd przekroczy zdefiniowany próg na karcie pamięci w pliku data.txt zapisany zostanie nowy rekord danych.  
 
 ### Project
 
-The state_recorder directory contains a complete STM32CubeIDE project.
+Katalog state_recorder zawiera kompletny projekt STM32CubeIDE.
 
 ##### Branches
 
-master - contain English version  
-polish - contain polish version
+master - zawiera wersję angielską  
+polish - zawiera wersję polską
 
 
