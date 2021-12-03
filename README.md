@@ -15,7 +15,7 @@ When the current level is exceeded the threshold defined as const currentThresho
 
 A consumed energy is calculated with the voltage defined as const powerVoltage in the input_monitor.h file. Currently it is 230V.
 
-A single record in a CSV file has the form:  
+It's best to open the data.csv in the LibreOffice Calc. The MS excel has problems with commas in floating point numbers. A single record in a CSV file has the form:  
 `Index, name, event time, duration, avr. I [A], Energy [kWh]`
 
 
@@ -28,7 +28,7 @@ polish - contain Polish version
 
 Better resolution is in the schema.png file.
 
-<img src="current_transformer.png" width="428">
+<img src="current_transformer.png" width="435">
 
 
 <img src="sdcard.png" width="454">
