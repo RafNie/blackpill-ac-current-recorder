@@ -21,9 +21,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA
   8 .data         0000007c  20000000  0800a8a8  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          000043f4  2000007c  0800a924  0002007c  2**2
+  9 .bss          00003c24  2000007c  0800a924  0002007c  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  20004470  0800a924  00024470  2**0
+ 10 ._user_heap_stack 00000600  20003ca0  0800a924  00023ca0  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  0002007c  2**0
                   CONTENTS, READONLY
@@ -1176,10 +1176,10 @@ static void initSDcard() {
  8000e12:	46bd      	mov	sp, r7
  8000e14:	bd80      	pop	{r7, pc}
  8000e16:	bf00      	nop
- 8000e18:	20002404 	.word	0x20002404
- 8000e1c:	20003438 	.word	0x20003438
+ 8000e18:	20001c34 	.word	0x20001c34
+ 8000e1c:	20002c68 	.word	0x20002c68
  8000e20:	20000000 	.word	0x20000000
- 8000e24:	20002408 	.word	0x20002408
+ 8000e24:	20001c38 	.word	0x20001c38
  8000e28:	0800a6cc 	.word	0x0800a6cc
  8000e2c:	00000000 	.word	0x00000000
 
@@ -1825,10 +1825,10 @@ static void recordData(const char* name, uint32_t start_time, uint32_t duration,
  80013b6:	37c0      	adds	r7, #192	; 0xc0
  80013b8:	46bd      	mov	sp, r7
  80013ba:	bd80      	pop	{r7, pc}
- 80013bc:	20002404 	.word	0x20002404
- 80013c0:	20003438 	.word	0x20003438
+ 80013bc:	20001c34 	.word	0x20001c34
+ 80013c0:	20002c68 	.word	0x20002c68
  80013c4:	20000000 	.word	0x20000000
- 80013c8:	20002408 	.word	0x20002408
+ 80013c8:	20001c38 	.word	0x20001c38
  80013cc:	20000098 	.word	0x20000098
  80013d0:	0800a724 	.word	0x0800a724
  80013d4:	0036ee80 	.word	0x0036ee80
@@ -1989,7 +1989,7 @@ void countInput(input_monitor* input_monitor, float pp_voltage) {
  80014dc:	f7ff ffc8 	bl	8001470 <calculateCurrent>
  80014e0:	ed87 0a03 	vstr	s0, [r7, #12]
 	if (current > currentThreshold) {
- 80014e4:	eeb5 7a00 	vmov.f32	s14, #80	; 0x3e800000  0.250
+ 80014e4:	eeb6 7a00 	vmov.f32	s14, #96	; 0x3f000000  0.5
  80014e8:	edd7 7a03 	vldr	s15, [r7, #12]
  80014ec:	eef4 7ac7 	vcmpe.f32	s15, s14
  80014f0:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
@@ -2108,7 +2108,7 @@ void startEventWrapper() {
  80015ca:	bf00      	nop
  80015cc:	bd80      	pop	{r7, pc}
  80015ce:	bf00      	nop
- 80015d0:	20002214 	.word	0x20002214
+ 80015d0:	20001a44 	.word	0x20001a44
 
 080015d4 <endEventWrapper>:
 
@@ -2128,7 +2128,7 @@ void endEventWrapper(float averageCurrent, float energy) {
  80015f2:	3708      	adds	r7, #8
  80015f4:	46bd      	mov	sp, r7
  80015f6:	bd80      	pop	{r7, pc}
- 80015f8:	20002214 	.word	0x20002214
+ 80015f8:	20001a44 	.word	0x20001a44
 
 080015fc <filter>:
 
@@ -2419,7 +2419,7 @@ int main(void)
  80017b8:	d1f6      	bne.n	80017a8 <main+0x58>
 	  case stateStartAdc:
 		  HAL_ADC_Start_DMA(&hadc1, adcBuffer, ADC_BUF_SIZE);
- 80017ba:	f241 0268 	movw	r2, #4200	; 0x1068
+ 80017ba:	f44f 6248 	mov.w	r2, #3200	; 0xc80
  80017be:	491a      	ldr	r1, [pc, #104]	; (8001828 <main+0xd8>)
  80017c0:	481a      	ldr	r0, [pc, #104]	; (800182c <main+0xdc>)
  80017c2:	f000 fda9 	bl	8002318 <HAL_ADC_Start_DMA>
@@ -2431,11 +2431,11 @@ int main(void)
  80017cc:	e01b      	b.n	8001806 <main+0xb6>
 	  case stateProcessInput:
 		  filter(adcBuffer, ADC_BUF_SIZE);
- 80017ce:	f241 0168 	movw	r1, #4200	; 0x1068
+ 80017ce:	f44f 6148 	mov.w	r1, #3200	; 0xc80
  80017d2:	4815      	ldr	r0, [pc, #84]	; (8001828 <main+0xd8>)
  80017d4:	f7ff ff12 	bl	80015fc <filter>
 		  Vpp = findMinMaxDiff(adcBuffer, ADC_BUF_SIZE);
- 80017d8:	f241 0168 	movw	r1, #4200	; 0x1068
+ 80017d8:	f44f 6148 	mov.w	r1, #3200	; 0xc80
  80017dc:	4812      	ldr	r0, [pc, #72]	; (8001828 <main+0xd8>)
  80017de:	f7ff ff57 	bl	8001690 <findMinMaxDiff>
  80017e2:	4603      	mov	r3, r0
@@ -2459,15 +2459,15 @@ int main(void)
 	  switch (currentState) {
  8001806:	e7cf      	b.n	80017a8 <main+0x58>
  8001808:	40020800 	.word	0x40020800
- 800180c:	200023bc 	.word	0x200023bc
- 8001810:	200023a8 	.word	0x200023a8
+ 800180c:	20001bec 	.word	0x20001bec
+ 8001810:	20001bd8 	.word	0x20001bd8
  8001814:	080015c1 	.word	0x080015c1
  8001818:	080015d5 	.word	0x080015d5
  800181c:	0800a72c 	.word	0x0800a72c
- 8001820:	20002214 	.word	0x20002214
+ 8001820:	20001a44 	.word	0x20001a44
  8001824:	20000004 	.word	0x20000004
  8001828:	2000009c 	.word	0x2000009c
- 800182c:	2000221c 	.word	0x2000221c
+ 800182c:	20001a4c 	.word	0x20001a4c
 
 08001830 <SystemClock_Config>:
 /**
@@ -2629,9 +2629,9 @@ static void MX_ADC1_Init(void)
  8001912:	4b21      	ldr	r3, [pc, #132]	; (8001998 <MX_ADC1_Init+0x98>)
  8001914:	4a21      	ldr	r2, [pc, #132]	; (800199c <MX_ADC1_Init+0x9c>)
  8001916:	601a      	str	r2, [r3, #0]
-  hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV8;
+  hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
  8001918:	4b1f      	ldr	r3, [pc, #124]	; (8001998 <MX_ADC1_Init+0x98>)
- 800191a:	f44f 3240 	mov.w	r2, #196608	; 0x30000
+ 800191a:	f44f 3280 	mov.w	r2, #65536	; 0x10000
  800191e:	605a      	str	r2, [r3, #4]
   hadc1.Init.Resolution = ADC_RESOLUTION_12B;
  8001920:	4b1d      	ldr	r3, [pc, #116]	; (8001998 <MX_ADC1_Init+0x98>)
@@ -2691,8 +2691,8 @@ static void MX_ADC1_Init(void)
   sConfig.Rank = 1;
  8001974:	2301      	movs	r3, #1
  8001976:	607b      	str	r3, [r7, #4]
-  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
- 8001978:	2300      	movs	r3, #0
+  sConfig.SamplingTime = ADC_SAMPLETIME_28CYCLES;
+ 8001978:	2302      	movs	r3, #2
  800197a:	60bb      	str	r3, [r7, #8]
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
  800197c:	463b      	mov	r3, r7
@@ -2715,7 +2715,7 @@ static void MX_ADC1_Init(void)
  8001992:	3710      	adds	r7, #16
  8001994:	46bd      	mov	sp, r7
  8001996:	bd80      	pop	{r7, pc}
- 8001998:	2000221c 	.word	0x2000221c
+ 8001998:	20001a4c 	.word	0x20001a4c
  800199c:	40012000 	.word	0x40012000
  80019a0:	0f000001 	.word	0x0f000001
 
@@ -2770,7 +2770,7 @@ static void MX_SDIO_SD_Init(void)
  80019d4:	46bd      	mov	sp, r7
  80019d6:	f85d 7b04 	ldr.w	r7, [sp], #4
  80019da:	4770      	bx	lr
- 80019dc:	20002324 	.word	0x20002324
+ 80019dc:	20001b54 	.word	0x20001b54
  80019e0:	40012c00 	.word	0x40012c00
 
 080019e4 <MX_TIM2_Init>:
@@ -2926,7 +2926,7 @@ static void MX_TIM2_Init(void)
  8001ac2:	46bd      	mov	sp, r7
  8001ac4:	bd80      	pop	{r7, pc}
  8001ac6:	bf00      	nop
- 8001ac8:	200023bc 	.word	0x200023bc
+ 8001ac8:	20001bec 	.word	0x20001bec
 
 08001acc <MX_DMA_Init>:
 
@@ -3136,7 +3136,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
  8001c1e:	3708      	adds	r7, #8
  8001c20:	46bd      	mov	sp, r7
  8001c22:	bd80      	pop	{r7, pc}
- 8001c24:	2000221c 	.word	0x2000221c
+ 8001c24:	20001a4c 	.word	0x20001a4c
  8001c28:	20000004 	.word	0x20000004
 
 08001c2c <Error_Handler>:
@@ -3362,7 +3362,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
  8001d68:	40012000 	.word	0x40012000
  8001d6c:	40023800 	.word	0x40023800
  8001d70:	40020000 	.word	0x40020000
- 8001d74:	20002264 	.word	0x20002264
+ 8001d74:	20001a94 	.word	0x20001a94
  8001d78:	40026410 	.word	0x40026410
 
 08001d7c <HAL_SD_MspInit>:
@@ -3672,9 +3672,9 @@ void HAL_SD_MspInit(SD_HandleTypeDef* hsd)
  8001f60:	40023800 	.word	0x40023800
  8001f64:	40020000 	.word	0x40020000
  8001f68:	40020400 	.word	0x40020400
- 8001f6c:	200021b4 	.word	0x200021b4
+ 8001f6c:	200019e4 	.word	0x200019e4
  8001f70:	40026458 	.word	0x40026458
- 8001f74:	200022c4 	.word	0x200022c4
+ 8001f74:	20001af4 	.word	0x20001af4
  8001f78:	400264a0 	.word	0x400264a0
 
 08001f7c <HAL_TIM_Base_MspInit>:
@@ -3917,7 +3917,7 @@ void TIM2_IRQHandler(void)
 }
  8002034:	bf00      	nop
  8002036:	bd80      	pop	{r7, pc}
- 8002038:	200023bc 	.word	0x200023bc
+ 8002038:	20001bec 	.word	0x20001bec
  800203c:	20000004 	.word	0x20000004
 
 08002040 <SDIO_IRQHandler>:
@@ -3942,7 +3942,7 @@ void SDIO_IRQHandler(void)
  800204a:	bf00      	nop
  800204c:	bd80      	pop	{r7, pc}
  800204e:	bf00      	nop
- 8002050:	20002324 	.word	0x20002324
+ 8002050:	20001b54 	.word	0x20001b54
 
 08002054 <DMA2_Stream0_IRQHandler>:
 
@@ -3966,7 +3966,7 @@ void DMA2_Stream0_IRQHandler(void)
  800205e:	bf00      	nop
  8002060:	bd80      	pop	{r7, pc}
  8002062:	bf00      	nop
- 8002064:	20002264 	.word	0x20002264
+ 8002064:	20001a94 	.word	0x20001a94
 
 08002068 <DMA2_Stream3_IRQHandler>:
 
@@ -3990,7 +3990,7 @@ void DMA2_Stream3_IRQHandler(void)
  8002072:	bf00      	nop
  8002074:	bd80      	pop	{r7, pc}
  8002076:	bf00      	nop
- 8002078:	200021b4 	.word	0x200021b4
+ 8002078:	200019e4 	.word	0x200019e4
 
 0800207c <DMA2_Stream6_IRQHandler>:
 
@@ -4014,7 +4014,7 @@ void DMA2_Stream6_IRQHandler(void)
  8002086:	bf00      	nop
  8002088:	bd80      	pop	{r7, pc}
  800208a:	bf00      	nop
- 800208c:	200022c4 	.word	0x200022c4
+ 800208c:	20001af4 	.word	0x20001af4
 
 08002090 <_sbrk>:
 /**
@@ -4079,8 +4079,8 @@ caddr_t _sbrk(int incr)
  80020da:	3710      	adds	r7, #16
  80020dc:	46bd      	mov	sp, r7
  80020de:	bd80      	pop	{r7, pc}
- 80020e0:	2000216c 	.word	0x2000216c
- 80020e4:	20004470 	.word	0x20004470
+ 80020e0:	2000199c 	.word	0x2000199c
+ 80020e4:	20003ca0 	.word	0x20003ca0
 
 080020e8 <SystemInit>:
   *         configuration.
@@ -4202,7 +4202,7 @@ LoopFillZerobss:
   ldr  r2, =_sbss
  800215c:	2000007c 	.word	0x2000007c
   ldr  r3, = _ebss
- 8002160:	20004470 	.word	0x20004470
+ 8002160:	20003ca0 	.word	0x20003ca0
 
 08002164 <ADC_IRQHandler>:
  * @retval None       
@@ -4365,7 +4365,7 @@ __weak void HAL_IncTick(void)
  8002228:	4770      	bx	lr
  800222a:	bf00      	nop
  800222c:	20000010 	.word	0x20000010
- 8002230:	200023fc 	.word	0x200023fc
+ 8002230:	20001c2c 	.word	0x20001c2c
 
 08002234 <HAL_GetTick>:
   * @note This function is declared as __weak to be overwritten in case of other 
@@ -4385,7 +4385,7 @@ __weak uint32_t HAL_GetTick(void)
  8002240:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002244:	4770      	bx	lr
  8002246:	bf00      	nop
- 8002248:	200023fc 	.word	0x200023fc
+ 8002248:	20001c2c 	.word	0x20001c2c
 
 0800224c <HAL_Delay>:
   *       implementations in user file.
@@ -17553,9 +17553,9 @@ void MX_FATFS_Init(void)
 }
  80069fc:	bf00      	nop
  80069fe:	bd80      	pop	{r7, pc}
- 8006a00:	20002404 	.word	0x20002404
+ 8006a00:	20001c34 	.word	0x20001c34
  8006a04:	0800a794 	.word	0x0800a794
- 8006a08:	20002400 	.word	0x20002400
+ 8006a08:	20001c30 	.word	0x20001c30
 
 08006a0c <get_fattime>:
   * @brief  Gets Time from RTC 
@@ -17614,7 +17614,7 @@ __weak uint8_t BSP_SD_Init(void)
  8006a42:	3708      	adds	r7, #8
  8006a44:	46bd      	mov	sp, r7
  8006a46:	bd80      	pop	{r7, pc}
- 8006a48:	20002324 	.word	0x20002324
+ 8006a48:	20001b54 	.word	0x20001b54
 
 08006a4c <BSP_SD_ReadBlocks_DMA>:
   * @param  ReadAddr: Address from where data is to be read
@@ -17656,7 +17656,7 @@ __weak uint8_t BSP_SD_ReadBlocks_DMA(uint32_t *pData, uint32_t ReadAddr, uint32_
  8006a76:	3718      	adds	r7, #24
  8006a78:	46bd      	mov	sp, r7
  8006a7a:	bd80      	pop	{r7, pc}
- 8006a7c:	20002324 	.word	0x20002324
+ 8006a7c:	20001b54 	.word	0x20001b54
 
 08006a80 <BSP_SD_WriteBlocks_DMA>:
   * @param  WriteAddr: Address from where data is to be written
@@ -17698,7 +17698,7 @@ __weak uint8_t BSP_SD_WriteBlocks_DMA(uint32_t *pData, uint32_t WriteAddr, uint3
  8006aaa:	3718      	adds	r7, #24
  8006aac:	46bd      	mov	sp, r7
  8006aae:	bd80      	pop	{r7, pc}
- 8006ab0:	20002324 	.word	0x20002324
+ 8006ab0:	20001b54 	.word	0x20001b54
 
 08006ab4 <BSP_SD_GetCardState>:
   *          This value can be one of the following values:
@@ -17722,7 +17722,7 @@ __weak uint8_t BSP_SD_GetCardState(void)
  8006aca:	4618      	mov	r0, r3
  8006acc:	bd80      	pop	{r7, pc}
  8006ace:	bf00      	nop
- 8006ad0:	20002324 	.word	0x20002324
+ 8006ad0:	20001b54 	.word	0x20001b54
 
 08006ad4 <BSP_SD_GetCardInfo>:
   * @brief  Get SD information about specific SD card.
@@ -17745,7 +17745,7 @@ __weak void BSP_SD_GetCardInfo(HAL_SD_CardInfoTypeDef *CardInfo)
  8006ae6:	3708      	adds	r7, #8
  8006ae8:	46bd      	mov	sp, r7
  8006aea:	bd80      	pop	{r7, pc}
- 8006aec:	20002324 	.word	0x20002324
+ 8006aec:	20001b54 	.word	0x20001b54
 
 08006af0 <HAL_SD_AbortCallback>:
   * @brief SD Abort callbacks
@@ -18185,7 +18185,7 @@ DRESULT SD_read(BYTE lun, BYTE *buff, DWORD sector, UINT count)
  8006cfa:	46bd      	mov	sp, r7
  8006cfc:	bd80      	pop	{r7, pc}
  8006cfe:	bf00      	nop
- 8006d00:	20002174 	.word	0x20002174
+ 8006d00:	200019a4 	.word	0x200019a4
 
 08006d04 <SD_write>:
   * @retval DRESULT: Operation result
@@ -18321,7 +18321,7 @@ DRESULT SD_write(BYTE lun, const BYTE *buff, DWORD sector, UINT count)
  8006da6:	46bd      	mov	sp, r7
  8006da8:	bd80      	pop	{r7, pc}
  8006daa:	bf00      	nop
- 8006dac:	20002170 	.word	0x20002170
+ 8006dac:	200019a0 	.word	0x200019a0
 
 08006db0 <SD_ioctl>:
   * @param  *buff: Buffer to send/receive control data
@@ -18457,7 +18457,7 @@ void BSP_SD_WriteCpltCallback(void)
  8006e6c:	46bd      	mov	sp, r7
  8006e6e:	f85d 7b04 	ldr.w	r7, [sp], #4
  8006e72:	4770      	bx	lr
- 8006e74:	20002170 	.word	0x20002170
+ 8006e74:	200019a0 	.word	0x200019a0
 
 08006e78 <BSP_SD_ReadCpltCallback>:
   * @brief Rx Transfer completed callbacks
@@ -18477,7 +18477,7 @@ void BSP_SD_ReadCpltCallback(void)
  8006e84:	46bd      	mov	sp, r7
  8006e86:	f85d 7b04 	ldr.w	r7, [sp], #4
  8006e8a:	4770      	bx	lr
- 8006e8c:	20002174 	.word	0x20002174
+ 8006e8c:	200019a4 	.word	0x200019a4
 
 08006e90 <disk_status>:
   * @retval DSTATUS: Operation status
@@ -18515,7 +18515,7 @@ DSTATUS disk_status (
  8006eba:	3710      	adds	r7, #16
  8006ebc:	46bd      	mov	sp, r7
  8006ebe:	bd80      	pop	{r7, pc}
- 8006ec0:	200021a0 	.word	0x200021a0
+ 8006ec0:	200019d0 	.word	0x200019d0
 
 08006ec4 <disk_initialize>:
   * @retval DSTATUS: Operation status
@@ -18569,7 +18569,7 @@ DSTATUS disk_initialize (
  8006f06:	46bd      	mov	sp, r7
  8006f08:	bd80      	pop	{r7, pc}
  8006f0a:	bf00      	nop
- 8006f0c:	200021a0 	.word	0x200021a0
+ 8006f0c:	200019d0 	.word	0x200019d0
 
 08006f10 <disk_read>:
 	BYTE pdrv,		/* Physical drive nmuber to identify the drive */
@@ -18613,7 +18613,7 @@ DSTATUS disk_initialize (
  8006f46:	46bd      	mov	sp, r7
  8006f48:	bd90      	pop	{r4, r7, pc}
  8006f4a:	bf00      	nop
- 8006f4c:	200021a0 	.word	0x200021a0
+ 8006f4c:	200019d0 	.word	0x200019d0
 
 08006f50 <disk_write>:
 	BYTE pdrv,		/* Physical drive nmuber to identify the drive */
@@ -18657,7 +18657,7 @@ DSTATUS disk_initialize (
  8006f86:	46bd      	mov	sp, r7
  8006f88:	bd90      	pop	{r4, r7, pc}
  8006f8a:	bf00      	nop
- 8006f8c:	200021a0 	.word	0x200021a0
+ 8006f8c:	200019d0 	.word	0x200019d0
 
 08006f90 <disk_ioctl>:
 DRESULT disk_ioctl (
@@ -18699,7 +18699,7 @@ DRESULT disk_ioctl (
  8006fc2:	3710      	adds	r7, #16
  8006fc4:	46bd      	mov	sp, r7
  8006fc6:	bd80      	pop	{r7, pc}
- 8006fc8:	200021a0 	.word	0x200021a0
+ 8006fc8:	200019d0 	.word	0x200019d0
 
 08006fcc <ld_word>:
 /* Load/Store multi-byte word in the FAT structure                       */
@@ -19170,7 +19170,7 @@ FRESULT chk_lock (	/* Check if the file can be accessed */
  8007278:	f85d 7b04 	ldr.w	r7, [sp], #4
  800727c:	4770      	bx	lr
  800727e:	bf00      	nop
- 8007280:	20002180 	.word	0x20002180
+ 8007280:	200019b0 	.word	0x200019b0
 
 08007284 <enq_lock>:
 
@@ -19214,7 +19214,7 @@ int enq_lock (void)	/* Check if an entry is available for a new object */
  80072bc:	f85d 7b04 	ldr.w	r7, [sp], #4
  80072c0:	4770      	bx	lr
  80072c2:	bf00      	nop
- 80072c4:	20002180 	.word	0x20002180
+ 80072c4:	200019b0 	.word	0x200019b0
 
 080072c8 <inc_lock>:
 static
@@ -19389,7 +19389,7 @@ UINT inc_lock (	/* Increment object open counter and returns its index (0:Intern
  80073d8:	46bd      	mov	sp, r7
  80073da:	f85d 7b04 	ldr.w	r7, [sp], #4
  80073de:	4770      	bx	lr
- 80073e0:	20002180 	.word	0x20002180
+ 80073e0:	200019b0 	.word	0x200019b0
 
 080073e4 <dec_lock>:
 
@@ -19470,7 +19470,7 @@ FRESULT dec_lock (	/* Decrement object open counter */
  8007450:	f85d 7b04 	ldr.w	r7, [sp], #4
  8007454:	4770      	bx	lr
  8007456:	bf00      	nop
- 8007458:	20002180 	.word	0x20002180
+ 8007458:	200019b0 	.word	0x200019b0
 
 0800745c <clear_lock>:
 
@@ -19519,7 +19519,7 @@ void clear_lock (	/* Clear lock entries of the volume */
  8007498:	f85d 7b04 	ldr.w	r7, [sp], #4
  800749c:	4770      	bx	lr
  800749e:	bf00      	nop
- 80074a0:	20002180 	.word	0x20002180
+ 80074a0:	200019b0 	.word	0x200019b0
 
 080074a4 <sync_window>:
 #if !_FS_READONLY
@@ -22617,7 +22617,7 @@ FRESULT find_volume (	/* FR_OK(0): successful, !=0: any error occurred */
  80087e2:	230d      	movs	r3, #13
  80087e4:	e105      	b.n	80089f2 <find_volume+0x4f2>
  80087e6:	bf00      	nop
- 80087e8:	20002178 	.word	0x20002178
+ 80087e8:	200019a8 	.word	0x200019a8
 
 		/* Determine the FAT sub type */
 		sysect = nrsv + fasize + fs->n_rootdir / (SS(fs) / SZDIRE);	/* RSV + FAT + DIR */
@@ -22919,7 +22919,7 @@ FRESULT find_volume (	/* FR_OK(0): successful, !=0: any error occurred */
  80089fa:	bf00      	nop
  80089fc:	41615252 	.word	0x41615252
  8008a00:	61417272 	.word	0x61417272
- 8008a04:	2000217c 	.word	0x2000217c
+ 8008a04:	200019ac 	.word	0x200019ac
 
 08008a08 <validate>:
 static
@@ -23099,7 +23099,7 @@ FRESULT f_mount (
  8008af6:	3720      	adds	r7, #32
  8008af8:	46bd      	mov	sp, r7
  8008afa:	bd80      	pop	{r7, pc}
- 8008afc:	20002178 	.word	0x20002178
+ 8008afc:	200019a8 	.word	0x200019a8
 
 08008b00 <f_open>:
 FRESULT f_open (
@@ -24434,7 +24434,7 @@ uint8_t FATFS_LinkDriverEx(const Diskio_drvTypeDef *drv, char *path, uint8_t lun
  800939c:	f85d 7b04 	ldr.w	r7, [sp], #4
  80093a0:	4770      	bx	lr
  80093a2:	bf00      	nop
- 80093a4:	200021a0 	.word	0x200021a0
+ 80093a4:	200019d0 	.word	0x200019d0
 
 080093a8 <FATFS_LinkDriver>:
   * @param  drv: pointer to the disk IO Driver structure
@@ -24621,8 +24621,8 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  8009516:	d0cf      	beq.n	80094b8 <_malloc_r+0x48>
  8009518:	6025      	str	r5, [r4, #0]
  800951a:	e7db      	b.n	80094d4 <_malloc_r+0x64>
- 800951c:	200021ac 	.word	0x200021ac
- 8009520:	200021b0 	.word	0x200021b0
+ 800951c:	200019dc 	.word	0x200019dc
+ 8009520:	200019e0 	.word	0x200019e0
 
 08009524 <_sbrk_r>:
  8009524:	b538      	push	{r3, r4, r5, lr}
@@ -24638,7 +24638,7 @@ uint8_t FATFS_LinkDriver(const Diskio_drvTypeDef *drv, char *path)
  800953a:	b103      	cbz	r3, 800953e <_sbrk_r+0x1a>
  800953c:	602b      	str	r3, [r5, #0]
  800953e:	bd38      	pop	{r3, r4, r5, pc}
- 8009540:	2000446c 	.word	0x2000446c
+ 8009540:	20003c9c 	.word	0x20003c9c
 
 08009544 <strcat>:
  8009544:	b510      	push	{r4, lr}
