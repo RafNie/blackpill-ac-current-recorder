@@ -1,6 +1,6 @@
 #MicroXplorer Configuration settings - do not modify
 ADC1.Channel-1\#ChannelRegularConversion=ADC_CHANNEL_0
-ADC1.ClockPrescaler=ADC_CLOCK_SYNC_PCLK_DIV8
+ADC1.ClockPrescaler=ADC_CLOCK_SYNC_PCLK_DIV4
 ADC1.ContinuousConvMode=ENABLE
 ADC1.DMAContinuousRequests=ENABLE
 ADC1.ExternalTrigConv=ADC_SOFTWARE_START
@@ -9,7 +9,7 @@ ADC1.InjNumberOfConversion=0
 ADC1.NbrOfConversion=1
 ADC1.NbrOfConversionFlag=1
 ADC1.Rank-1\#ChannelRegularConversion=1
-ADC1.SamplingTime-1\#ChannelRegularConversion=ADC_SAMPLETIME_3CYCLES
+ADC1.SamplingTime-1\#ChannelRegularConversion=ADC_SAMPLETIME_28CYCLES
 ADC1.master=1
 Dma.ADC1.2.Direction=DMA_PERIPH_TO_MEMORY
 Dma.ADC1.2.FIFOMode=DMA_FIFOMODE_DISABLE
