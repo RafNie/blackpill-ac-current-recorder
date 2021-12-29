@@ -11,9 +11,10 @@
 #include <inttypes.h>
 #include <main.h>
 
-static const float currentThreshold = 0.5;
+static const float currentThreshold = 0.6;
 static const float powerVoltage = 230;
-static const float currentTransformerRatio = 0.115;
+static const float currentTransformerRatio = 0.08132;
+static const float rootOfTwo = 1.4142135623731;
 
 typedef struct {
 	float energy;//[Ws]

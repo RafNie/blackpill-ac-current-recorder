@@ -2,16 +2,16 @@
 
 AC current recorder based on the blackpill STM32F411CEU.  
 Device uses a current transformer for measure AC current.  
-If the current is exceeded the threshold, a new data record will be written to SD in the data.csv file. 
+If the RMS current is exceeded the threshold, a new data record will be written to SD in the data.csv file. 
 
 ### Project
 
 The state_recorder directory contains a complete STM32CubeIDE project.
 
-Device takes 3200 samples of the one signal period (50Hz) every 1s. The current transformer and measure resistor R3 ratio (current/voltage) is defined as the const value currentTransformerRatio in the input_monitor.h file. For my transformer it is 0.115V/A. You can update it value accordingly to yours transformer.
+Device takes 3200 samples of the one signal period (50Hz) every 1s. The current transformer and measure resistor R3 ratio (current/voltage) is defined as the const value `currentTransformerRatio` in the input_monitor.h file. For my DIY transformer it is 0.08132V/A. You can update it value accordingly to yours transformer.
 After acquisition a signal is filtered by simple the moving average filter.
 
-When the current level is exceeded the threshold defined as const currentThreshold = 0.5A in the input_monitor.h file, the data starts to be integrate. The data is saved as a new record in the data.csv file after the current drops below the threshold.
+When the current level is exceeded the threshold defined as const `currentThreshold = 0.6A` in the input_monitor.h file, the data starts to be integrate. The data is saved as a new record in the data.csv file after the current drops below the threshold.
 
 A consumed energy is calculated with the voltage defined as const powerVoltage in the input_monitor.h file. Currently it is 230V.
 

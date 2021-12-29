@@ -8,7 +8,7 @@
 #include "input_monitor.h"
 
 static inline float calculateCurrent(float pp_voltage) {
-	return pp_voltage/(currentTransformerRatio*2);
+	return pp_voltage/(currentTransformerRatio*rootOfTwo*2);
 }
 
 static inline void clearMonitor(input_monitor* input_monitor) {
